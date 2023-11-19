@@ -33,6 +33,8 @@ async def UpdateTask(bot):
                 )
 
                 guild = await bot.fetch_guild(object["guild_id"])
+                if not guild:
+                    return
 
                 # Get discovery channel in server and mention role in that channel
                 server = servers.find_one({"guild_id": object["guild_id"]})
