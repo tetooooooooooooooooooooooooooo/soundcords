@@ -1,1 +1,1 @@
-worker:node server.js
+worker: python src/main.py
