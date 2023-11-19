@@ -34,7 +34,7 @@ class commandcog(commands.Cog):
             view.add_item(button)
 
         message = await interaction.channel.send(
-            content=f"What do you think of {interaction.guild.name}?", view=view
+            content=f"How has your experience been with the server?", view=view
         )
 
         # Set channel for discovery here

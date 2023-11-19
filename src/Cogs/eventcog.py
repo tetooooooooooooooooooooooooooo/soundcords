@@ -20,10 +20,11 @@ class eventcog(commands.Cog):
         date = datetime.date.today()
 
         # Get role for today
-        role_data = roles.find_one({"date": str(date)})
+        role_data = roles.find_one({"date": str(date), "guild_id": member.guild.id})
 
         role = None
         if not role_data:
+            print("Creating new role!")
             # If role doesn't exist then create it
             role = await member.guild.create_role(name=str(date))
             roles.insert_one(
@@ -34,10 +35,25 @@ class eventcog(commands.Cog):
                 }
             )
         else:
+            print("Getting role")
             role = member.guild.get_role(role_data["role_id"])
             if not role:
+                print("Did not find role?!")
                 role = await member.guild.create_role(name=str(date))
+                roles.find_one_and_replace(
+                    {
+                        "date": str(date),
+                        "role_id": role_data["role_id"],
+                        "guild_id": member.guild.id,
+                    },
+                    {
+                        "date": str(date),
+                        "role_id": role.id,
+                        "guild_id": member.guild.id,
+                    },
+                )
 
+        print("Adding role!")
         # Add member to role!
         await member.add_roles(role, reason="Added discovery role to member!")
 

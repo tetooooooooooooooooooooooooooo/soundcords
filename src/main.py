@@ -19,8 +19,6 @@ async def UpdateTask(bot):
         roles = database["roles"]
         servers = database["servers"]
 
-        guild = await bot.fetch_guild(808786289419616263)
-
         wantedDate = (datetime.datetime.now() - datetime.timedelta(days=8)).date()
 
         objects = roles.find({"date": str(wantedDate)})
