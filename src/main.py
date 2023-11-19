@@ -21,7 +21,7 @@ async def UpdateTask(bot):
 
         guild = await bot.fetch_guild(808786289419616263)
 
-        wantedDate = (datetime.datetime.now() - datetime.timedelta(days=7)).date()
+        wantedDate = (datetime.datetime.now() - datetime.timedelta(days=8)).date()
 
         objects = roles.find({"date": str(wantedDate)})
         for object in objects:
@@ -51,7 +51,7 @@ async def UpdateTask(bot):
                 await message.delete(delay=5.0)
 
         # Delete old data
-        oldDate = (datetime.datetime.now() - datetime.timedelta(days=8)).date()
+        oldDate = (datetime.datetime.now() - datetime.timedelta(days=9)).date()
         objects = roles.find({"date": str(oldDate)})
         for object in objects:
             guild = await bot.fetch_guild(object["guild_id"])
